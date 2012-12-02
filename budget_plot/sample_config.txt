@@ -1,0 +1,32 @@
+# comment
+output_filename='test.pdf'
+output_format = 'pdf'
+
+
+~Accounts
+expenses:food:restaurant = 1M # comment
+expenses:food:groceries = 1M
+expenses:fun:alcohol = 3M
+expenses:housing:cable = 3M
+expenses:housing:rent = 1M
+expenses:housing:supplies = 1M
+expenses:housing:electric = 3M
+expenses:housing:gas = 3M
+expenses:housing:insurance = 12M 
+expenses:travel = 1M
+expenses:auto:gas = 3M
+expenses:auto:parking = 1M
+expenses:shipping_packaging = 1M
+expenses:clothes = 6M
+expenses:fun:tech = 3M
+expenses:fun:shows = 3M
+expenses:fun:books = 1M
+expenses:gifts = 3M
+expenses:education = 1M
+expenses:health:workout = 3M
+expenses:health:toiletries = 1M
+expenses:health:insurance = 1M
+expenses:taxes = 1M
+expenses:laundry_drycleaning = 2M
+expenses = 1M
+income = 1M

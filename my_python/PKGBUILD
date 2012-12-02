@@ -1,0 +1,28 @@
+# Contributor: Chad Voegele <cavoegele@gmail.com>
+
+pkgname=my_python
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="My Python scripts."
+arch=('i686' 'x86_64')
+license=('GPL')
+depends=('python')
+
+build() {
+
+  cp /home/chad/code/private/my_python/backup.py\
+     /home/chad/code/private/my_python/open_file.py\
+     /home/chad/code/private/my_python/open_firefox.py\
+     /home/chad/code/private/my_python/musdir.py\
+     /home/chad/code/private/my_python/musrename.py\
+     $srcdir
+
+  install -Dm 755 $srcdir/backup.py $pkgdir/home/chad/bin/backup.py
+  install -Dm 755 $srcdir/open_file.py $pkgdir/home/chad/bin/open_file.py
+  install -Dm 755 $srcdir/open_firefox.py $pkgdir/home/chad/bin/open_firefox.py
+  install -Dm 755 $srcdir/musdir.py $pkgdir/home/chad/bin/musdir.py
+  install -Dm 755 $srcdir/musrename.py $pkgdir/home/chad/bin/musrename.py
+  
+}
+
+# vim:set ts=2 sw=2 et:
