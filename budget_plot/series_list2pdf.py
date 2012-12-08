@@ -26,6 +26,9 @@ def series_list2pdf(output_filename, series_input):
     ax.xaxis.set_major_locator(month_locator)
     dt_fmter = mdates.AutoDateFormatter(month_locator)
     ax.xaxis.set_major_formatter(dt_fmter)
+    labels = ax.get_xticklabels() 
+    for label in labels: 
+          label.set_rotation(30) 
     plt.savefig(pp, format='pdf')
 
   pp.close()
