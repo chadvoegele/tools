@@ -14,8 +14,8 @@ if os.uname()[1] == "chaddesk":
   interface="eth0"
   width=1920
   font_size=20
-  x_pos=1440
-  date_offset=-110
+  x_pos=0
+  date_offset=100
   net_prof_dir = "/run/network/profiles";
 
 elif os.uname()[1] == "chadlaptop":
