@@ -23,13 +23,16 @@ build() {
     msg "The local files are updated."
   else
     git clone $_gitroot/$_gitname.git
+    cd $_gitname  
   fi
 
-  cd $_gitname  
   cd $pkgname
 
+  install -d $pkgdir/home/chad/.dzen/bin/
   install -Dm 755 src/*py $pkgdir/home/chad/.dzen/bin/
+  install -d $pkgdir/home/chad/etc/rc.d
   install -Dm 755 src/dzend $pkgdir/home/chad/etc/rc.d/
+  install -d $pkgdir/home/chad/.dzen/icons
   install -Dm 644 res/*xbm $pkgdir/home/chad/.dzen/icons/
 }
 
