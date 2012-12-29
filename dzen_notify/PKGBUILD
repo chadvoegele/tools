@@ -1,7 +1,7 @@
 # Contributor: Chad Voegele <cavoegele@gmail.com>
 
 pkgname=dzen_notify
-pkgver=0.0.1
+pkgver=20121228
 pkgrel=1
 pkgdesc="dzen scripts"
 arch=('i686' 'x86_64')
@@ -9,8 +9,8 @@ license=('GPL')
 depends=('python')
 makedepends=('git')
 
-_gitroot="git@git.assembla.com"
-_gitname="chad"
+_gitroot="git://git.assembla.com"
+_gitname="chadpublic"
 
 build() {
 
@@ -22,7 +22,7 @@ build() {
     git pull origin
     msg "The local files are updated."
   else
-    git clone $_gitroot:$_gitname.git
+    git clone $_gitroot/$_gitname.git
   fi
 
   cd $_gitname  

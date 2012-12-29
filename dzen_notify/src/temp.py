@@ -6,22 +6,22 @@ alert_bgcolor = config.alert_bgcolor
 
 def getTemp():
   if config.is_desktop():
-    cpuTempFile0 = '/sys/devices/platform/coretemp.0/temp1_input'
+    cpuTempFile0 = '/sys/devices/platform/coretemp.0/temp2_input'
     cpuTempRead0 = open(cpuTempFile0, 'r')
     cpuTemp0 = int(int(cpuTempRead0.readline())/1000)
     cpuTempRead0.close()
 
-    cpuTempFile1 = '/sys/devices/platform/coretemp.1/temp1_input'
+    cpuTempFile1 = '/sys/devices/platform/coretemp.0/temp3_input'
     cpuTempRead1 = open(cpuTempFile1, 'r')
     cpuTemp1 = int(int(cpuTempRead1.readline())/1000)
     cpuTempRead1.close()
 
-    cpuTempFile2 = '/sys/devices/platform/coretemp.2/temp1_input'
+    cpuTempFile2 = '/sys/devices/platform/coretemp.0/temp4_input'
     cpuTempRead2 = open(cpuTempFile2, 'r')
     cpuTemp2 = int(int(cpuTempRead2.readline())/1000)
     cpuTempRead2.close()
 
-    cpuTempFile3 = '/sys/devices/platform/coretemp.3/temp1_input'
+    cpuTempFile3 = '/sys/devices/platform/coretemp.0/temp5_input'
     cpuTempRead3 = open(cpuTempFile3, 'r')
     cpuTemp3 = int(int(cpuTempRead3.readline())/1000)
     cpuTempRead3.close()

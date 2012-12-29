@@ -4,11 +4,13 @@ import socket
 import config
 
 def newMail():
+  password=""
   if os.path.exists(config.net_prof_dir) \
-      and len(os.listdir(config.net_prof_dir)) > 0:
+      and len(os.listdir(config.net_prof_dir)) > 0 \
+      and not password == "":
     try:
       mail = imaplib.IMAP4_SSL("imap.gmail.com", 993)
-      mail.login("cavoegele@gmail.com", "")
+      mail.login("cavoegele@gmail.com", password)
       mail.select()
       counter=0
       typ, messages = mail.search(None, 'UNSEEN')

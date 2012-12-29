@@ -78,9 +78,9 @@ while 1:
     intMail = newMailTup[1]
     mailOut = " ^i(/home/chad/.dzen/icons/mail.xbm)" + str(newMail) + " "
 
-  if t % 2 == 0:
-    getIM = imnotify.getIM()
-    imOut = getIM
+#  if t % 2 == 0:
+#    getIM = imnotify.getIM()
+#    imOut = getIM
 
   if t % intWeather == 0:
     weatherInfoTup = weathernotify.getWeatherNoaa()
@@ -109,10 +109,10 @@ while 1:
   sep = "|"
   if config.is_desktop():
     outString = tempOut + sep + fanOut + sep + memOut + sep + netOut + sep \
-      + mailOut + sep + imOut + sep + weatherOut + dateOut
+      + mailOut + sep + weatherOut + dateOut
   elif config.is_laptop():
     outString = tempOut + sep + fanOut + sep + memOut + sep + netOut + sep \
-      + mailOut + sep + imOut + sep + weatherOut + sep + battOut + dateOut
+      + mailOut + sep + weatherOut + sep + battOut + dateOut
   dzen.sendline(outString)
 
   time.sleep(1)
