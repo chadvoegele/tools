@@ -26,5 +26,6 @@ elif os.uname()[1] == "chadlaptop":
   interface="wlan0"
   width=1280
   font_size=14
+  x_pos=0
   date_offset=20
   net_prof_dir = "/run/network/profiles";
