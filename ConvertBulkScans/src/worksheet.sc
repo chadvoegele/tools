@@ -32,16 +32,16 @@ object test {
                                                   //> blank_filenames  : Set[String] = Set(/home/chad/work/apma507_scans/out44-13.
                                                   //| jpg, /home/chad/work/apma507_scans/out1-35.jpg, /home/chad/work/apma507_scan
                                                   //| s/out44-2.jpg, /home/chad/work/apma507_scans/out44-25.jpg, /home/chad/work/a
-                                                  //| pma507_scans/out44-12.jpg, /home/chad/work/apma507_scans/out44-16.jpg, /home
-                                                  //| /chad/work/apma507_scans/out44-4.jpg, /home/chad/work/apma507_scans/out44-36
-                                                  //| .jpg, /home/chad/work/apma507_scans/out44-35.jpg, /home/chad/work/apma507_sc
-                                                  //| ans/out44-8.jpg, /home/chad/work/apma507_scans/out44-1.jpg, /home/chad/work/
-                                                  //| apma507_scans/out44-5.jpg, /home/chad/work/apma507_scans/out44-21.jpg, /home
-                                                  //| /chad/work/apma507_scans/out44-34.jpg, /home/chad/work/apma507_scans/out44-3
-                                                  //| 3.jpg, /home/chad/work/apma507_scans/out44-40.jpg, /home/chad/work/apma507_s
-                                                  //| cans/out1-43.jpg, /home/chad/work/apma507_scans/out44-43.jpg, /home/chad/wor
-                                                  //| k/apma507_scans/out44-11.jpg, /home/chad/work/apma507_scans/out44-24.jpg, /h
-                                                  //| ome/chad/work/apma507_sc
+                                                  //| pma507_scans/out1-42.jpg, /home/chad/work/apma507_scans/out44-12.jpg, /home/
+                                                  //| chad/work/apma507_scans/out44-16.jpg, /home/chad/work/apma507_scans/out44-4.
+                                                  //| jpg, /home/chad/work/apma507_scans/out44-36.jpg, /home/chad/work/apma507_sca
+                                                  //| ns/out44-35.jpg, /home/chad/work/apma507_scans/out44-8.jpg, /home/chad/work/
+                                                  //| apma507_scans/out44-1.jpg, /home/chad/work/apma507_scans/out44-5.jpg, /home/
+                                                  //| chad/work/apma507_scans/out44-21.jpg, /home/chad/work/apma507_scans/out44-34
+                                                  //| .jpg, /home/chad/work/apma507_scans/out44-33.jpg, /home/chad/work/apma507_sc
+                                                  //| ans/out44-40.jpg, /home/chad/work/apma507_scans/out1-43.jpg, /home/chad/work
+                                                  //| /apma507_scans/out44-43.jpg, /home/chad/work/apma507_scans/out44-11.jpg, /ho
+                                                  //| me/chad/work/apma507_sca
                                                   //| Output exceeds cutoff limit.
 	val sortedFilenames = convertScans.sortFilenamesByScan(filenames)
                                                   //> sortedFilenames  : List[String] = List(/home/chad/work/apma507_scans/out1-1.
@@ -72,9 +72,57 @@ object test {
                                                   //| out1-13.jpg, /home/chad/work/apma507_scans/out44-31.jpg, /home/chad/work/apm
                                                   //| a507_scans/out1-14.jpg, /home/chad/work/apma507_scans/out44-30.jpg, /home/ch
                                                   //| ad/work/apma507_scans/ou
-                                                  //| Output exceeds cutoff limit./
-  //val command = "convert " + sortedNonBlankFilenames.reduce((x, y) => x + " " + y) + " " + output
-  //command.!!
+                                                  //| Output exceeds cutoff limit.
+  val sortedNonBlankPDFFilenames = sortedNonBlankFilenames.map(x => x.replaceAll("[.]jpg", ".pdf"))
+                                                  //> sortedNonBlankPDFFilenames  : List[String] = List(/home/chad/work/apma507_sc
+                                                  //| ans/out1-1.pdf, /home/chad/work/apma507_scans/out1-2.pdf, /home/chad/work/ap
+                                                  //| ma507_scans/out44-42.pdf, /home/chad/work/apma507_scans/out1-3.pdf, /home/ch
+                                                  //| ad/work/apma507_scans/out44-41.pdf, /home/chad/work/apma507_scans/out1-4.pdf
+                                                  //| , /home/chad/work/apma507_scans/out1-5.pdf, /home/chad/work/apma507_scans/ou
+                                                  //| t1-6.pdf, /home/chad/work/apma507_scans/out44-38.pdf, /home/chad/work/apma50
+                                                  //| 7_scans/out1-7.pdf, /home/chad/work/apma507_scans/out44-37.pdf, /home/chad/w
+                                                  //| ork/apma507_scans/out1-8.pdf, /home/chad/work/apma507_scans/out1-9.pdf, /hom
+                                                  //| e/chad/work/apma507_scans/out1-10.pdf, /home/chad/work/apma507_scans/out1-11
+                                                  //| .pdf, /home/chad/work/apma507_scans/out1-12.pdf, /home/chad/work/apma507_sca
+                                                  //| ns/out1-13.pdf, /home/chad/work/apma507_scans/out44-31.pdf, /home/chad/work/
+                                                  //| apma507_scans/out1-14.pdf, /home/chad/work/apma507_scans/out44-30.pdf, /home
+                                                  //| /chad/work/apma507_scans
+                                                  //| Output exceeds cutoff limit.
+  val convertToPDF = sortedNonBlankFilenames.zip(sortedNonBlankPDFFilenames).map({case (x, y) => "convert " + x + " " + y})
+                                                  //> convertToPDF  : List[String] = List(convert /home/chad/work/apma507_scans/ou
+                                                  //| t1-1.jpg /home/chad/work/apma507_scans/out1-1.pdf, convert /home/chad/work/a
+                                                  //| pma507_scans/out1-2.jpg /home/chad/work/apma507_scans/out1-2.pdf, convert /h
+                                                  //| ome/chad/work/apma507_scans/out44-42.jpg /home/chad/work/apma507_scans/out44
+                                                  //| -42.pdf, convert /home/chad/work/apma507_scans/out1-3.jpg /home/chad/work/ap
+                                                  //| ma507_scans/out1-3.pdf, convert /home/chad/work/apma507_scans/out44-41.jpg /
+                                                  //| home/chad/work/apma507_scans/out44-41.pdf, convert /home/chad/work/apma507_s
+                                                  //| cans/out1-4.jpg /home/chad/work/apma507_scans/out1-4.pdf, convert /home/chad
+                                                  //| /work/apma507_scans/out1-5.jpg /home/chad/work/apma507_scans/out1-5.pdf, con
+                                                  //| vert /home/chad/work/apma507_scans/out1-6.jpg /home/chad/work/apma507_scans/
+                                                  //| out1-6.pdf, convert /home/chad/work/apma507_scans/out44-38.jpg /home/chad/wo
+                                                  //| rk/apma507_scans/out44-38.pdf, convert /home/chad/work/apma507_scans/out1-7.
+                                                  //| jpg /home/chad/work/apma
+                                                  //| Output exceeds cutoff limit.
+  convertToPDF.map(x => x.!!)                     //> res0: List[String] = List("", "", "", "", "", "", "", "", "", "", "", "", ""
+                                                  //| , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+                                                  //| , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+                                                  //| , "", "", "", "", "", "", "")
+  val command = "pdfunite " + sortedNonBlankPDFFilenames.reduce((x, y) => x + " " + y) + " " + output
+                                                  //> command  : String = pdfunite /home/chad/work/apma507_scans/out1-1.pdf /home/
+                                                  //| chad/work/apma507_scans/out1-2.pdf /home/chad/work/apma507_scans/out44-42.pd
+                                                  //| f /home/chad/work/apma507_scans/out1-3.pdf /home/chad/work/apma507_scans/out
+                                                  //| 44-41.pdf /home/chad/work/apma507_scans/out1-4.pdf /home/chad/work/apma507_s
+                                                  //| cans/out1-5.pdf /home/chad/work/apma507_scans/out1-6.pdf /home/chad/work/apm
+                                                  //| a507_scans/out44-38.pdf /home/chad/work/apma507_scans/out1-7.pdf /home/chad/
+                                                  //| work/apma507_scans/out44-37.pdf /home/chad/work/apma507_scans/out1-8.pdf /ho
+                                                  //| me/chad/work/apma507_scans/out1-9.pdf /home/chad/work/apma507_scans/out1-10.
+                                                  //| pdf /home/chad/work/apma507_scans/out1-11.pdf /home/chad/work/apma507_scans/
+                                                  //| out1-12.pdf /home/chad/work/apma507_scans/out1-13.pdf /home/chad/work/apma50
+                                                  //| 7_scans/out44-31.pdf /home/chad/work/apma507_scans/out1-14.pdf /home/chad/wo
+                                                  //| rk/apma507_scans/out44-30.pdf /home/chad/work/apma507_scans/out1-15.pdf /hom
+                                                  //| e/chad/work/apma507_scan
+                                                  //| Output exceeds cutoff limit.
+  command.!!                                      //> res1: String = ""
 }
 
 object convertScans {
