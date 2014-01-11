@@ -12,7 +12,7 @@ if os.uname()[1] == "chaddesk":
   alert_bgcolor="#90001F"
   alert_fgcolor="#FFFFFF"
   interface="eth0"
-  width=1920
+  width=1440
   font_size=20
   x_pos=0
   date_offset=100
