@@ -10,86 +10,100 @@ import scala.math._;
 import weka._;
 
 object test {
-	val dir = "/home/chad/work/opns430_scans" //> dir  : String = /home/chad/work/opns430_scans
-	val output = dir + "/" + "opns403_doc.pdf"//> output  : String = /home/chad/work/opns430_scans/opns403_doc.pdf
+	val dir = "/home/chad/work/math5140"      //> dir  : String = /home/chad/work/math5140
+	val output = dir + "/" + "math5140_doc.pdf"
+                                                  //> output  : String = /home/chad/work/math5140/math5140_doc.pdf
 	
 	val filenames = convertScans.getImageFilenamesInDirectory(dir)
-                                                  //> filenames  : List[String] = List(/home/chad/work/opns430_scans/out205-49.jpg
-                                                  //| , /home/chad/work/opns430_scans/out205-30.jpg, /home/chad/work/opns430_scans
-                                                  //| /out1-55.jpg, /home/chad/work/opns430_scans/out1-16.jpg, /home/chad/work/opn
-                                                  //| s430_scans/out205-98.jpg, /home/chad/work/opns430_scans/out89-17.jpg, /home/
-                                                  //| chad/work/opns430_scans/out1-28.jpg, /home/chad/work/opns430_scans/out205-75
-                                                  //| .jpg, /home/chad/work/opns430_scans/out1-26.jpg, /home/chad/work/opns430_sca
-                                                  //| ns/out89-66.jpg, /home/chad/work/opns430_scans/out89-32.jpg, /home/chad/work
-                                                  //| /opns430_scans/out205-23.jpg, /home/chad/work/opns430_scans/out205-72.jpg, /
-                                                  //| home/chad/work/opns430_scans/out89-51.jpg, /home/chad/work/opns430_scans/out
-                                                  //| 205-29.jpg, /home/chad/work/opns430_scans/out1-72.jpg, /home/chad/work/opns4
-                                                  //| 30_scans/out89-46.jpg, /home/chad/work/opns430_scans/out205-103.jpg, /home/c
-                                                  //| had/work/opns430_scans/out89-74.jpg, /home/chad/work/opns430_scans/out205-90
-                                                  //| .jpg, /home/chad/work/op
+                                                  //> filenames  : List[String] = List(/home/chad/work/math5140/out93-1.jpg, /home
+                                                  //| /chad/work/math5140/out1-55.jpg, /home/chad/work/math5140/out191-24.jpg, /ho
+                                                  //| me/chad/work/math5140/out277-57.jpg, /home/chad/work/math5140/out191-8.jpg, 
+                                                  //| /home/chad/work/math5140/out93-39.jpg, /home/chad/work/math5140/out191-29.jp
+                                                  //| g, /home/chad/work/math5140/out191-80.jpg, /home/chad/work/math5140/out191-3
+                                                  //| 7.jpg, /home/chad/work/math5140/out1-16.jpg, /home/chad/work/math5140/out277
+                                                  //| -2.jpg, /home/chad/work/math5140/out277-61.jpg, /home/chad/work/math5140/out
+                                                  //| 277-69.jpg, /home/chad/work/math5140/out1-28.jpg, /home/chad/work/math5140/o
+                                                  //| ut277-13.jpg, /home/chad/work/math5140/out1-26.jpg, /home/chad/work/math5140
+                                                  //| /out277-55.jpg, /home/chad/work/math5140/out277-78.jpg, /home/chad/work/math
+                                                  //| 5140/out191-23.jpg, /home/chad/work/math5140/out277-50.jpg, /home/chad/work/
+                                                  //| math5140/out191-32.jpg, /home/chad/work/math5140/out277-28.jpg, /home/chad/w
+                                                  //| ork/math5140/out1-72.jpg
                                                   //| Output exceeds cutoff limit.
 	val blank_filenames = convertScans.getBlankFilenamesInDirectory(filenames)
-                                                  //> blank_filenames  : Set[String] = Set()
+                                                  //> blank_filenames  : Set[String] = Set(/home/chad/work/math5140/out1-58.jpg, /
+                                                  //| home/chad/work/math5140/out1-76.jpg, /home/chad/work/math5140/out1-14.jpg, /
+                                                  //| home/chad/work/math5140/out93-10.jpg, /home/chad/work/math5140/out191-44.jpg
+                                                  //| , /home/chad/work/math5140/out191-10.jpg, /home/chad/work/math5140/out93-6.j
+                                                  //| pg, /home/chad/work/math5140/out191-27.jpg, /home/chad/work/math5140/out1-78
+                                                  //| .jpg, /home/chad/work/math5140/out1-28.jpg, /home/chad/work/math5140/out1-68
+                                                  //| .jpg, /home/chad/work/math5140/out1-48.jpg, /home/chad/work/math5140/out93-9
+                                                  //| 2.jpg, /home/chad/work/math5140/out93-66.jpg, /home/chad/work/math5140/out19
+                                                  //| 1-42.jpg, /home/chad/work/math5140/out1-84.jpg, /home/chad/work/math5140/out
+                                                  //| 1-10.jpg, /home/chad/work/math5140/out1-92.jpg, /home/chad/work/math5140/out
+                                                  //| 93-58.jpg, /home/chad/work/math5140/out1-86.jpg, /home/chad/work/math5140/ou
+                                                  //| t191-72.jpg, /home/chad/work/math5140/out93-88.jpg, /home/chad/work/math5140
+                                                  //| /out93-86.jpg, /home/cha
+                                                  //| Output exceeds cutoff limit.
 	//val sortedFilenames = convertScans.sortFilenamesBySingleSidedScan(filenames)
 	val sortedFilenames = convertScans.sortFilenamesByDoubleSidedScan(filenames)
-                                                  //> sortedFilenames  : List[String] = List(/home/chad/work/opns430_scans/out1-1.
-                                                  //| jpg, /home/chad/work/opns430_scans/out1-2.jpg, /home/chad/work/opns430_scans
-                                                  //| /out1-3.jpg, /home/chad/work/opns430_scans/out1-4.jpg, /home/chad/work/opns4
-                                                  //| 30_scans/out1-5.jpg, /home/chad/work/opns430_scans/out1-6.jpg, /home/chad/wo
-                                                  //| rk/opns430_scans/out1-7.jpg, /home/chad/work/opns430_scans/out1-8.jpg, /home
-                                                  //| /chad/work/opns430_scans/out1-9.jpg, /home/chad/work/opns430_scans/out1-10.j
-                                                  //| pg, /home/chad/work/opns430_scans/out1-11.jpg, /home/chad/work/opns430_scans
-                                                  //| /out1-12.jpg, /home/chad/work/opns430_scans/out1-13.jpg, /home/chad/work/opn
-                                                  //| s430_scans/out1-14.jpg, /home/chad/work/opns430_scans/out1-15.jpg, /home/cha
-                                                  //| d/work/opns430_scans/out1-16.jpg, /home/chad/work/opns430_scans/out1-17.jpg,
-                                                  //|  /home/chad/work/opns430_scans/out1-18.jpg, /home/chad/work/opns430_scans/ou
-                                                  //| t1-19.jpg, /home/chad/work/opns430_scans/out1-20.jpg, /home/chad/work/opns43
-                                                  //| 0_scans/out1-21.jpg, /ho
+                                                  //> sortedFilenames  : List[String] = List(/home/chad/work/math5140/out1-1.jpg, 
+                                                  //| /home/chad/work/math5140/out1-2.jpg, /home/chad/work/math5140/out1-3.jpg, /h
+                                                  //| ome/chad/work/math5140/out1-4.jpg, /home/chad/work/math5140/out1-5.jpg, /hom
+                                                  //| e/chad/work/math5140/out1-6.jpg, /home/chad/work/math5140/out1-7.jpg, /home/
+                                                  //| chad/work/math5140/out1-8.jpg, /home/chad/work/math5140/out1-9.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-10.jpg, /home/chad/work/math5140/out1-11.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-12.jpg, /home/chad/work/math5140/out1-13.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-14.jpg, /home/chad/work/math5140/out1-15.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-16.jpg, /home/chad/work/math5140/out1-17.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-18.jpg, /home/chad/work/math5140/out1-19.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-20.jpg, /home/chad/work/math5140/out1-21.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-22.jpg, /home/chad/work/math5140/out1-23.jpg, /home/ch
+                                                  //| ad/work/math5140/out1-24
                                                   //| Output exceeds cutoff limit.
   val sortedNonBlankFilenames = sortedFilenames.filter(x => !blank_filenames.contains(x))
-                                                  //> sortedNonBlankFilenames  : List[String] = List(/home/chad/work/opns430_scans
-                                                  //| /out1-1.jpg, /home/chad/work/opns430_scans/out1-2.jpg, /home/chad/work/opns4
-                                                  //| 30_scans/out1-3.jpg, /home/chad/work/opns430_scans/out1-4.jpg, /home/chad/wo
-                                                  //| rk/opns430_scans/out1-5.jpg, /home/chad/work/opns430_scans/out1-6.jpg, /home
-                                                  //| /chad/work/opns430_scans/out1-7.jpg, /home/chad/work/opns430_scans/out1-8.jp
-                                                  //| g, /home/chad/work/opns430_scans/out1-9.jpg, /home/chad/work/opns430_scans/o
-                                                  //| ut1-10.jpg, /home/chad/work/opns430_scans/out1-11.jpg, /home/chad/work/opns4
-                                                  //| 30_scans/out1-12.jpg, /home/chad/work/opns430_scans/out1-13.jpg, /home/chad/
-                                                  //| work/opns430_scans/out1-14.jpg, /home/chad/work/opns430_scans/out1-15.jpg, /
-                                                  //| home/chad/work/opns430_scans/out1-16.jpg, /home/chad/work/opns430_scans/out1
-                                                  //| -17.jpg, /home/chad/work/opns430_scans/out1-18.jpg, /home/chad/work/opns430_
-                                                  //| scans/out1-19.jpg, /home/chad/work/opns430_scans/out1-20.jpg, /home/chad/wor
-                                                  //| k/opns430_scans/out1-21.
+                                                  //> sortedNonBlankFilenames  : List[String] = List(/home/chad/work/math5140/out1
+                                                  //| -1.jpg, /home/chad/work/math5140/out1-2.jpg, /home/chad/work/math5140/out1-3
+                                                  //| .jpg, /home/chad/work/math5140/out1-5.jpg, /home/chad/work/math5140/out1-6.j
+                                                  //| pg, /home/chad/work/math5140/out1-7.jpg, /home/chad/work/math5140/out1-8.jpg
+                                                  //| , /home/chad/work/math5140/out1-9.jpg, /home/chad/work/math5140/out1-11.jpg,
+                                                  //|  /home/chad/work/math5140/out1-13.jpg, /home/chad/work/math5140/out1-15.jpg,
+                                                  //|  /home/chad/work/math5140/out1-16.jpg, /home/chad/work/math5140/out1-17.jpg,
+                                                  //|  /home/chad/work/math5140/out1-19.jpg, /home/chad/work/math5140/out1-21.jpg,
+                                                  //|  /home/chad/work/math5140/out1-22.jpg, /home/chad/work/math5140/out1-23.jpg,
+                                                  //|  /home/chad/work/math5140/out1-25.jpg, /home/chad/work/math5140/out1-26.jpg,
+                                                  //|  /home/chad/work/math5140/out1-27.jpg, /home/chad/work/math5140/out1-29.jpg,
+                                                  //|  /home/chad/work/math5140/out1-31.jpg, /home/chad/work/math5140/out1-33.jpg,
+                                                  //|  /home/chad/work/math514
                                                   //| Output exceeds cutoff limit.
   val sortedNonBlankPDFFilenames = sortedNonBlankFilenames.map(x => x.replaceAll("[.]jpg", ".pdf"))
-                                                  //> sortedNonBlankPDFFilenames  : List[String] = List(/home/chad/work/opns430_sc
-                                                  //| ans/out1-1.pdf, /home/chad/work/opns430_scans/out1-2.pdf, /home/chad/work/op
-                                                  //| ns430_scans/out1-3.pdf, /home/chad/work/opns430_scans/out1-4.pdf, /home/chad
-                                                  //| /work/opns430_scans/out1-5.pdf, /home/chad/work/opns430_scans/out1-6.pdf, /h
-                                                  //| ome/chad/work/opns430_scans/out1-7.pdf, /home/chad/work/opns430_scans/out1-8
-                                                  //| .pdf, /home/chad/work/opns430_scans/out1-9.pdf, /home/chad/work/opns430_scan
-                                                  //| s/out1-10.pdf, /home/chad/work/opns430_scans/out1-11.pdf, /home/chad/work/op
-                                                  //| ns430_scans/out1-12.pdf, /home/chad/work/opns430_scans/out1-13.pdf, /home/ch
-                                                  //| ad/work/opns430_scans/out1-14.pdf, /home/chad/work/opns430_scans/out1-15.pdf
-                                                  //| , /home/chad/work/opns430_scans/out1-16.pdf, /home/chad/work/opns430_scans/o
-                                                  //| ut1-17.pdf, /home/chad/work/opns430_scans/out1-18.pdf, /home/chad/work/opns4
-                                                  //| 30_scans/out1-19.pdf, /home/chad/work/opns430_scans/out1-20.pdf, /home/chad/
-                                                  //| work/opns430_scans/out1-
+                                                  //> sortedNonBlankPDFFilenames  : List[String] = List(/home/chad/work/math5140/o
+                                                  //| ut1-1.pdf, /home/chad/work/math5140/out1-2.pdf, /home/chad/work/math5140/out
+                                                  //| 1-3.pdf, /home/chad/work/math5140/out1-5.pdf, /home/chad/work/math5140/out1-
+                                                  //| 6.pdf, /home/chad/work/math5140/out1-7.pdf, /home/chad/work/math5140/out1-8.
+                                                  //| pdf, /home/chad/work/math5140/out1-9.pdf, /home/chad/work/math5140/out1-11.p
+                                                  //| df, /home/chad/work/math5140/out1-13.pdf, /home/chad/work/math5140/out1-15.p
+                                                  //| df, /home/chad/work/math5140/out1-16.pdf, /home/chad/work/math5140/out1-17.p
+                                                  //| df, /home/chad/work/math5140/out1-19.pdf, /home/chad/work/math5140/out1-21.p
+                                                  //| df, /home/chad/work/math5140/out1-22.pdf, /home/chad/work/math5140/out1-23.p
+                                                  //| df, /home/chad/work/math5140/out1-25.pdf, /home/chad/work/math5140/out1-26.p
+                                                  //| df, /home/chad/work/math5140/out1-27.pdf, /home/chad/work/math5140/out1-29.p
+                                                  //| df, /home/chad/work/math5140/out1-31.pdf, /home/chad/work/math5140/out1-33.p
+                                                  //| df, /home/chad/work/math
                                                   //| Output exceeds cutoff limit.
   val convertToPDF = sortedNonBlankFilenames.zip(sortedNonBlankPDFFilenames).map({case (x, y) => "convert " + x + " " + y})
-                                                  //> convertToPDF  : List[String] = List(convert /home/chad/work/opns430_scans/ou
-                                                  //| t1-1.jpg /home/chad/work/opns430_scans/out1-1.pdf, convert /home/chad/work/o
-                                                  //| pns430_scans/out1-2.jpg /home/chad/work/opns430_scans/out1-2.pdf, convert /h
-                                                  //| ome/chad/work/opns430_scans/out1-3.jpg /home/chad/work/opns430_scans/out1-3.
-                                                  //| pdf, convert /home/chad/work/opns430_scans/out1-4.jpg /home/chad/work/opns43
-                                                  //| 0_scans/out1-4.pdf, convert /home/chad/work/opns430_scans/out1-5.jpg /home/c
-                                                  //| had/work/opns430_scans/out1-5.pdf, convert /home/chad/work/opns430_scans/out
-                                                  //| 1-6.jpg /home/chad/work/opns430_scans/out1-6.pdf, convert /home/chad/work/op
-                                                  //| ns430_scans/out1-7.jpg /home/chad/work/opns430_scans/out1-7.pdf, convert /ho
-                                                  //| me/chad/work/opns430_scans/out1-8.jpg /home/chad/work/opns430_scans/out1-8.p
-                                                  //| df, convert /home/chad/work/opns430_scans/out1-9.jpg /home/chad/work/opns430
-                                                  //| _scans/out1-9.pdf, convert /home/chad/work/opns430_scans/out1-10.jpg /home/c
-                                                  //| had/work/opns430_scans/o
+                                                  //> convertToPDF  : List[String] = List(convert /home/chad/work/math5140/out1-1.
+                                                  //| jpg /home/chad/work/math5140/out1-1.pdf, convert /home/chad/work/math5140/ou
+                                                  //| t1-2.jpg /home/chad/work/math5140/out1-2.pdf, convert /home/chad/work/math51
+                                                  //| 40/out1-3.jpg /home/chad/work/math5140/out1-3.pdf, convert /home/chad/work/m
+                                                  //| ath5140/out1-5.jpg /home/chad/work/math5140/out1-5.pdf, convert /home/chad/w
+                                                  //| ork/math5140/out1-6.jpg /home/chad/work/math5140/out1-6.pdf, convert /home/c
+                                                  //| had/work/math5140/out1-7.jpg /home/chad/work/math5140/out1-7.pdf, convert /h
+                                                  //| ome/chad/work/math5140/out1-8.jpg /home/chad/work/math5140/out1-8.pdf, conve
+                                                  //| rt /home/chad/work/math5140/out1-9.jpg /home/chad/work/math5140/out1-9.pdf, 
+                                                  //| convert /home/chad/work/math5140/out1-11.jpg /home/chad/work/math5140/out1-1
+                                                  //| 1.pdf, convert /home/chad/work/math5140/out1-13.jpg /home/chad/work/math5140
+                                                  //| /out1-13.pdf, convert /home/chad/work/math5140/out1-15.jpg /home/chad/work/m
+                                                  //| ath5140/out1-15.pdf, con
                                                   //| Output exceeds cutoff limit.
   convertToPDF.map(x => x.!!)                     //> res0: List[String] = List("", "", "", "", "", "", "", "", "", "", "", "", ""
                                                   //| , "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
@@ -106,19 +120,19 @@ object test {
                                                   //| , "", "", "", "", "", ""
                                                   //| Output exceeds cutoff limit.
   val command = "pdfunite " + sortedNonBlankPDFFilenames.reduce((x, y) => x + " " + y) + " " + output
-                                                  //> command  : String = pdfunite /home/chad/work/opns430_scans/out1-1.pdf /home
-                                                  //| /chad/work/opns430_scans/out1-2.pdf /home/chad/work/opns430_scans/out1-3.pd
-                                                  //| f /home/chad/work/opns430_scans/out1-4.pdf /home/chad/work/opns430_scans/ou
-                                                  //| t1-5.pdf /home/chad/work/opns430_scans/out1-6.pdf /home/chad/work/opns430_s
-                                                  //| cans/out1-7.pdf /home/chad/work/opns430_scans/out1-8.pdf /home/chad/work/op
-                                                  //| ns430_scans/out1-9.pdf /home/chad/work/opns430_scans/out1-10.pdf /home/chad
-                                                  //| /work/opns430_scans/out1-11.pdf /home/chad/work/opns430_scans/out1-12.pdf /
-                                                  //| home/chad/work/opns430_scans/out1-13.pdf /home/chad/work/opns430_scans/out1
-                                                  //| -14.pdf /home/chad/work/opns430_scans/out1-15.pdf /home/chad/work/opns430_s
-                                                  //| cans/out1-16.pdf /home/chad/work/opns430_scans/out1-17.pdf /home/chad/work/
-                                                  //| opns430_scans/out1-18.pdf /home/chad/work/opns430_scans/out1-19.pdf /home/c
-                                                  //| had/work/opns430_scans/out1-20.pdf /home/chad/work/opns430_scans/out1-21.pd
-                                                  //| f /home/chad/work/opns4
+                                                  //> command  : String = pdfunite /home/chad/work/math5140/out1-1.pdf /home/chad
+                                                  //| /work/math5140/out1-2.pdf /home/chad/work/math5140/out1-3.pdf /home/chad/wo
+                                                  //| rk/math5140/out1-5.pdf /home/chad/work/math5140/out1-6.pdf /home/chad/work/
+                                                  //| math5140/out1-7.pdf /home/chad/work/math5140/out1-8.pdf /home/chad/work/mat
+                                                  //| h5140/out1-9.pdf /home/chad/work/math5140/out1-11.pdf /home/chad/work/math5
+                                                  //| 140/out1-13.pdf /home/chad/work/math5140/out1-15.pdf /home/chad/work/math51
+                                                  //| 40/out1-16.pdf /home/chad/work/math5140/out1-17.pdf /home/chad/work/math514
+                                                  //| 0/out1-19.pdf /home/chad/work/math5140/out1-21.pdf /home/chad/work/math5140
+                                                  //| /out1-22.pdf /home/chad/work/math5140/out1-23.pdf /home/chad/work/math5140/
+                                                  //| out1-25.pdf /home/chad/work/math5140/out1-26.pdf /home/chad/work/math5140/o
+                                                  //| ut1-27.pdf /home/chad/work/math5140/out1-29.pdf /home/chad/work/math5140/ou
+                                                  //| t1-31.pdf /home/chad/work/math5140/out1-33.pdf /home/chad/work/math5140/out
+                                                  //| 1-35.pdf /home/chad/wor
                                                   //| Output exceeds cutoff limit.
   command.!!                                      //> res1: String = ""
 }
@@ -174,7 +188,7 @@ object convertScans {
 	}
 	
 	def getBlankFilenamesInDirectory(filenames : List[String]) : Set[String] = {
-		val explicitTrainNumber = 15;
+		val explicitTrainNumber = 20;
 		val explicitTrainProbLower = 0.01
 		
 		val stdevs = convertScans.getImageStandardDeviations(filenames)
