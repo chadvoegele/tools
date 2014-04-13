@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 
   map<string, string> mime_app;
   mime_app["application/msword"] = "abiword";
-  mime_app["application/pdf"] = "evince";
+  mime_app["application/pdf"] = "zathura";
   mime_app["application/rtf"] = "abiword";
   mime_app["application/vnd.ms-excel"] = "gnumeric";
   mime_app["application/x-perl"] = "vim -p";
