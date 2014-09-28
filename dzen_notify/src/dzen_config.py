@@ -60,13 +60,9 @@ while 1:
     pass
   rxr=int((rxbytesn-rxbytes)/1024/(1+.15))
   txr=int((txbytesn-txbytes)/1024/(1+.15))
-  if len(os.listdir(config.net_prof_dir)) != 0:
-    netOut = " ^bg()^i(/home/chad/.dzen/icons/down.xbm)" + str(rxr) + \
-      "^i(/home/chad/.dzen/icons/up.xbm)" + str(txr) + "^bg() "
-  else:
-    netOut = "^fg(" + alert_fgcolor + ")^bg(" + alert_bgcolor + \
-      ") ^i(/home/chad/.dzen/icons/down.xbm)! " + \
-      "^i(/home/chad/.dzen/icons/up.xbm)! ^fg()^bg()"
+  netOut = "^fg(" + alert_fgcolor + ")^bg(" + alert_bgcolor + \
+    ") ^i(/home/chad/.dzen/icons/down.xbm)! " + \
+    "^i(/home/chad/.dzen/icons/up.xbm)! ^fg()^bg()"
   rxbytes=rxbytesn
   txbytes=txbytesn
   rxopen.close()
