@@ -5,9 +5,10 @@ import config
 setproctitle.setproctitle('dzen_python')
 
 if config.is_desktop():
-  import temp, fan, meminfo, mailnotify, imnotify, weathernotify
+  import temp, fan, meminfo, mailnotify, imnotify, weathernotify, dropbox
 elif config.is_laptop():
-  import temp, fan, meminfo, mailnotify, imnotify, weathernotify,batterynotify
+  import temp, fan, meminfo, mailnotify, imnotify, weathernotify, dropbox
+  import batterynotify
 
 infocolor = config.infocolor
 bgcolor = config.bgcolor
@@ -84,6 +85,9 @@ while 1:
     intWeather = weatherInfoTup[1]
     weatherOut = " ^i(/home/chad/.dzen/icons/temp.xbm)" + weatherInfo + " "
 
+  dropboxStatus = dropbox.dropbox_status()
+  dropboxOut = " ^i(/home/chad/.dzen/icons/dropbox.xbm)" + dropboxStatus + " "
+
   if config.is_laptop():
     if (t % 300) == 0:
       battOut = batterynotify.getBatt()
@@ -105,10 +109,11 @@ while 1:
   sep = "|"
   if config.is_desktop():
     outString = tempOut + sep + fanOut + sep + memOut + sep + netOut + sep \
-      + mailOut + sep + weatherOut + dateOut
+      + mailOut + sep + weatherOut + sep + dropboxOut + sep + dateOut
   elif config.is_laptop():
     outString = tempOut + sep + fanOut + sep + memOut + sep + netOut + sep \
-      + mailOut + sep + weatherOut + sep + battOut + dateOut
+      + mailOut + sep + weatherOut + sep + dropboxOut + sep + battOut \
+      + dateOut
   dzen.sendline(outString)
 
   time.sleep(1)
