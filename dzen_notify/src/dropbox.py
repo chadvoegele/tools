@@ -24,7 +24,7 @@ def dropbox_status_parser(cli_output):
                 num = result.groups(0)[0]
                 return "Uploading " + num + " files"
         trimoutput = min(len(cli_output), 10)
-        return "Error: " + cli_output[0:trimoutput]
+        return "-"
 
 def dropbox_test1():
     output = "Up to date\n"
