@@ -13,7 +13,6 @@ _gitroot="https://github.com/chadvoegele"
 _gitname="tools"
 
 build() {
-
   cd $srcdir
   msg "Connecting to the GIT server...."
 
@@ -25,15 +24,13 @@ build() {
     git clone $_gitroot/$_gitname.git
     cd $_gitname  
   fi
+}
 
-  cd $pkgname
-
-  install -d $pkgdir/home/chad/.dzen/bin/
-  install -Dm 755 src/*py $pkgdir/home/chad/.dzen/bin/
-  install -d $pkgdir/home/chad/etc/rc.d
-  install -Dm 755 src/dzend $pkgdir/home/chad/etc/rc.d/
-  install -d $pkgdir/home/chad/.dzen/icons
-  install -Dm 644 res/*xbm $pkgdir/home/chad/.dzen/icons/
+package() {
+  install -d $pkgdir$HOME/.dzen/bin/
+  install -Dm 755 $srcdir/$_gitname/$pkgname/src/*py $pkgdir$HOME/.dzen/bin/
+  install -d $pkgdir$HOME/.dzen/icons
+  install -Dm 644 $srcdir/$_gitname/$pkgname/res/*xbm $pkgdir$HOME/.dzen/icons/
 }
 
 # vim:set ts=2 sw=2 et:
