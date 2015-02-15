@@ -3,7 +3,7 @@ import re
 from subprocess import check_output
 
 def dropbox_status():
-    cli_output = check_output(["dropbox", "status"]).decode()
+    cli_output = check_output(["dropbox-cli", "status"]).decode()
     return dropbox_status_parser(cli_output)
 
 def dropbox_status_parser(cli_output):
