@@ -11,12 +11,12 @@ source=('git+https://github.com/chadvoegele/tools.git')
 md5sums=('SKIP')
 
 build() {
-  cd "$srcdir/tools/open_file_code"
+  cd "$srcdir/tools/open_file"
   make || return 1
 }
 
 package() {
-  cd "$srcdir/tools/open_file_code"
+  cd "$srcdir/tools/open_file"
   install -Dm 755 open_file $pkgdir/usr/bin/open_file
 }
 
