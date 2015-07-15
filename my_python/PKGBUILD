@@ -7,22 +7,15 @@ pkgdesc="My Python scripts."
 arch=('i686' 'x86_64')
 license=('GPL')
 depends=('python')
+source=('git+https://github.com/chadvoegele/tools.git')
+md5sums=('SKIP')
 
-build() {
-
-  cp /home/chad/code/private/my_python/backup.py\
-     /home/chad/code/private/my_python/open_file.py\
-     /home/chad/code/private/my_python/open_firefox.py\
-     /home/chad/code/private/my_python/musdir.py\
-     /home/chad/code/private/my_python/musrename.py\
-     $srcdir
-
-  install -Dm 755 $srcdir/backup.py $pkgdir/home/chad/bin/backup.py
-  install -Dm 755 $srcdir/open_file.py $pkgdir/home/chad/bin/open_file.py
-  install -Dm 755 $srcdir/open_firefox.py $pkgdir/home/chad/bin/open_firefox.py
-  install -Dm 755 $srcdir/musdir.py $pkgdir/home/chad/bin/musdir.py
-  install -Dm 755 $srcdir/musrename.py $pkgdir/home/chad/bin/musrename.py
-  
+package() {
+  cd "$srcdir/tools/my_python"
+  install -Dm 755 backup.py $pkgdir/$HOME/bin/backup.py
+  install -Dm 755 open_firefox.py $pkgdir/$HOME/bin/open_firefox.py
+  install -Dm 755 musdir.py $pkgdir/$HOME/bin/musdir.py
+  install -Dm 755 musrename.py $pkgdir/$HOME/bin/musrename.py
 }
 
 # vim:set ts=2 sw=2 et:

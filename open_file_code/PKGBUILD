@@ -7,17 +7,17 @@ pkgdesc="open_file script"
 arch=('i686' 'x86_64')
 license=('GPL')
 makedepends=('gcc')
+source=('git+https://github.com/chadvoegele/tools.git')
+md5sums=('SKIP')
 
 build() {
-
-  cp /home/chad/code/private/open_file_code/open_file.cpp \
-     /home/chad/code/private/open_file_code/makefile \
-     $srcdir
-
-  cd $srcdir
+  cd "$srcdir/tools/open_file_code"
   make || return 1
-  install -Dm 755 $srcdir/open_file $pkgdir/home/chad/bin/open_file
-  
+}
+
+package() {
+  cd "$srcdir/tools/open_file_code"
+  install -Dm 755 open_file $pkgdir/usr/bin/open_file
 }
 
 # vim:set ts=2 sw=2 et:
