@@ -1,20 +1,29 @@
 #include <magic.h>
 #include <iostream>
+#include <sstream>
 #include <map>
 #include <string>
-#include <algorithm>
 #include <vector>
-#include <cstdlib>
-#include <cstdio>
 #include <sys/stat.h>
-#include <boost/algorithm/string/replace.hpp>
+#include <cassert>
+
+#ifndef CONFIG
+  #error Must define CONFIG
+#endif
+
+#if CONFIG == 1
+  #include "config.h"
+#elif CONFIG == 2
+  #include "osx_config.h"
+#else
+  #error CONFIG must be 1 or 2
+#endif
 
 using namespace std;
 
-// return extension of filename
-string get_file_ext(const string &in_filename) {
+string get_file_extension(const string &in_filename) {
   size_t ext_location = in_filename.find_last_of('.');
-  if (  ext_location != string::npos ) {
+  if (ext_location != string::npos) {
     return in_filename.substr(ext_location+1);
   } 
   else {
@@ -22,45 +31,45 @@ string get_file_ext(const string &in_filename) {
   }
 }
 
-int main(int argc, char** argv)
-{
+bool contained_in(const char c, const string& str) {
+  for (string::const_iterator iter = str.cbegin(); iter != str.cend(); iter++) {
+    if (*iter == c) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+string escape_chars(const string& input, const string &char_set) {
+  stringstream stream;
+
+  for (string::const_iterator iter = input.cbegin(); iter != input.cend(); iter++) {
+    if (contained_in(*iter, char_set)) {
+      stream << "\\";
+      stream << *iter;
+    }
+    else
+      stream << *iter;
+  }
+
+  return stream.str();
+}
+
+int main(int argc, char** argv) {
   if ( argc<2 ) {
     cout << "Please enter a filename." << endl;
     return 1;
   }
 
+  assert(string("foo\\ bar\\(") == escape_chars("foo bar(", " ()"));
+
   map<string, string> ext_app;
-  ext_app["xoj"] = "xournal";
-  ext_app["scala"] = "vim -p";
+  setup_ext_apps(ext_app);
 
   map<string, string> mime_app;
-  mime_app["application/msword"] = "abiword";
-  mime_app["application/pdf"] = "zathura";
-  mime_app["application/rtf"] = "abiword";
-  mime_app["application/vnd.ms-excel"] = "gnumeric";
-  mime_app["application/x-perl"] = "vim -p";
-  mime_app["application/x-shellscript"] = "vim -p";
-  mime_app["application/x-tar"] = "tar -xf";
-  mime_app["application/x-xoj"] = "xournal";
-  mime_app["application/vnd.ms-office"] = "gnumeric";
-  mime_app["image/jpeg"] = "gqview";
-  mime_app["text/plain"] = "vim -p";
-  mime_app["text/x-c"] = "vim -p";
-  mime_app["text/x-c++src"] = "vim -p";
-  mime_app["text/x-c++"] = "vim -p";
-  mime_app["text/x-csrc"] = "vim -p";
-  mime_app["text/x-fortran"] = "vim -p";
-  mime_app["text/x-java"] = "vim -p";
-  mime_app["text/x-log"] = "vim -p";
-  mime_app["text/x-matlab"] = "vim -p";
-  mime_app["text/x-pascal"] = "vim -p";
-  mime_app["text/x-python"] = "vim -p";
-  mime_app["text/x-shellscript"] = "vim -p";
-  mime_app["text/x-tex"] = "vim -p";
-  mime_app["video/x-ms-wmv"] = "mplayer";
-  mime_app["video/x-msvideo"] = "mplayer";
+  setup_mime_apps(mime_app);
 
-  // load magic
   magic_t magic_cookie = 
     magic_open(MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_COMPRESS);
   if ( magic_cookie == NULL) {
@@ -74,66 +83,56 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  // create app/file associations
   typedef map<string, vector<string> > mime_files_t;
   mime_files_t mime_files;
   for (int i=1; i<argc; i++) {
     string cur_file = *(argv+i);
-    
-    // create blank file if file does not exist.
+
     struct stat st_file_info;
     int ret_stat = -1;
     ret_stat = stat(cur_file.c_str(), &st_file_info);
-    if ( ret_stat != 0 ) {
-      cout << cur_file << " not found. Creating text file." << endl;
-      mime_files[mime_app["text/plain"]].push_back(cur_file);
-      continue;
-    } 
 
     string cur_app = "";
+    if (ret_stat != 0) {
+      cout << cur_file << " not found. Creating text file." << endl;
+      cur_app = mime_app["text/plain"];
 
-    string cur_ext = get_file_ext(cur_file);
-    string cur_mime = magic_file(magic_cookie, cur_file.c_str());
+    } else {
+      string cur_ext = get_file_extension(cur_file);
+      string cur_mime = magic_file(magic_cookie, cur_file.c_str());
 
-    // preference is mime then extension
-    // if app defined for mime_type
-    if ( mime_app.find(cur_mime) != mime_app.end() ) {
-      cur_app = mime_app[cur_mime];
-    }
-    // if no mime, if app defined for ext
-    else if ( ext_app.find(cur_ext) != ext_app.end() ) {
-      cur_app = ext_app[cur_ext];
-    }
-    // if no mime, no ext
-    else {
-      cout << "No app defined for " << cur_mime << " or " << cur_ext << endl;
-      continue;
+      // preference is mime then extension
+      if (mime_app.find(cur_mime) != mime_app.end()) {
+        cur_app = mime_app[cur_mime];
+      }
+      else if (ext_app.find(cur_ext) != ext_app.end()) {
+        cur_app = ext_app[cur_ext];
+      }
+      else {
+        cout << "No app defined for " << cur_mime << " or " << cur_ext << endl;
+        continue;
+      }
     }
 
-    // file exists and mime type program exists
-    boost::algorithm::replace_all(cur_file, " ", "\\ ");
-    boost::algorithm::replace_all(cur_file, "(", "\\(");
-    boost::algorithm::replace_all(cur_file, ")", "\\)");
-    boost::algorithm::replace_all(cur_file, "[", "\\[");
-    boost::algorithm::replace_all(cur_file, "]", "\\]");
-    boost::algorithm::replace_all(cur_file, "&", "\\&");
+    cur_file = escape_chars(cur_file, " ()[]&");
     mime_files[cur_app].push_back(cur_file);
   }
-  
-  // build cmd strings
-  for ( mime_files_t::const_iterator iter = mime_files.begin(); 
-      iter != mime_files.end(); iter++ ) {
+
+  for (mime_files_t::const_iterator cmd_iter = mime_files.begin();
+       cmd_iter != mime_files.end(); cmd_iter++) {
     string cmd_out;
-    cmd_out = cmd_out + iter->first + " ";
-    for ( vector<string>::const_iterator iter2 = (iter->second).begin();
-        iter2 != (iter->second).end(); iter2++ ) {
-      cmd_out = cmd_out + *iter2 + " ";
+    cmd_out = cmd_out + cmd_iter->first + " ";
+
+    vector<string> files = cmd_iter->second;
+    for (vector<string>::const_iterator file_iter = files.begin();
+         file_iter != files.end(); file_iter++) {
+      cmd_out = cmd_out + *file_iter + " ";
     }
+
     cout << cmd_out << endl;
     system(cmd_out.c_str());
   }
 
   magic_close(magic_cookie);
   return 0;
-
 }
