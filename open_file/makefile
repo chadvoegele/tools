@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-O2
+CXXFLAGS=-O2 -std=c++11
 LIBS=-lmagic
 SRC=open_file.cpp
 PROG=open_file

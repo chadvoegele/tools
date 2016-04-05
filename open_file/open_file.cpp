@@ -6,6 +6,7 @@
 #include <vector>
 #include <sys/stat.h>
 #include <cassert>
+#include <cstdlib>
 
 #ifndef CONFIG
   #error Must define CONFIG
