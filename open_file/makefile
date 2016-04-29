@@ -11,6 +11,9 @@ $(PROG): $(OBJ)
 	$(CXX) -L $(OSX_LIB_DIR) -o $@ $^ $(DEBUGFLAGS) $(CXXFLAGS) $(LIBS)
 
 $(OBJ): $(SRC)
+ifndef CONFIG
+	$(error "CONFIG is not set. Use 'export CONFIG=1' for linux and 'export CONFIG=2' for OSX")
+endif
 	$(CXX) -I $(OSX_INCLUDE_DIR) -c -D CONFIG=$(CONFIG) $(DEBUGFLAGS) $(CXXFLAGS) $^
 
 clean:
