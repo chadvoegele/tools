@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
   setup_mime_apps(mime_app);
 
   magic_t magic_cookie = 
-    magic_open(MAGIC_MIME_TYPE|MAGIC_SYMLINK|MAGIC_COMPRESS);
+    magic_open(MAGIC_MIME_TYPE|MAGIC_SYMLINK);
   if ( magic_cookie == NULL) {
     cout << "Unable to initialize magic." << endl;
     return 1;
@@ -100,7 +100,13 @@ int main(int argc, char** argv) {
 
     } else {
       string cur_ext = get_file_extension(cur_file);
-      string cur_mime = magic_file(magic_cookie, cur_file.c_str());
+      const char* cur_mime_char = magic_file(magic_cookie, cur_file.c_str());
+      if (cur_mime_char == NULL) {
+        cout << "magic_file failed to retrieve description of contents." << endl;
+        cout << "error: " << magic_error(magic_cookie) << endl;
+        return 1;
+      }
+      string cur_mime = string(cur_mime_char);
 
       // preference is mime then extension
       if (mime_app.find(cur_mime) != mime_app.end()) {

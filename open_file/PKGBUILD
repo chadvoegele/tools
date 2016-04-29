@@ -1,7 +1,7 @@
 # Contributor: Chad Voegele <cavoegele@gmail.com>
 
 pkgname=open_file
-pkgver=0.0.1
+pkgver=1
 pkgrel=1
 pkgdesc="open_file script"
 arch=('i686' 'x86_64')
@@ -9,6 +9,11 @@ license=('GPL')
 makedepends=('gcc')
 source=('git+https://github.com/chadvoegele/tools.git')
 md5sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+  git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
+}
 
 build() {
   cd "$srcdir/tools/open_file"
