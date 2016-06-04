@@ -2,6 +2,7 @@ import sys
 import importlib.util
 import systemd.journal
 import re
+import GeoIP
 
 def ipRegex():
     ipRegex = "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
@@ -52,16 +53,21 @@ def getAllIPs(lines, filtersCounts):
     ips = set(ips)
     return ips
 
-def iptablesBlockIP(ip):
-    iptablesBlock = "-A INPUT -s %s/32 -j DROP" % ip
+def iptablesBlockIP(ip, location):
+    iptablesBlock = "-A INPUT -s %s/32 -j DROP    # %s" % (ip, location)
     return iptablesBlock
 
+def getIPLoc(gi, ip):
+    return gi.country_name_by_addr(ip)
+
 def main():
+    gi = GeoIP.open('/usr/share/GeoIP/GeoIP.dat', GeoIP.GEOIP_STANDARD)
     errorIfModuleMissing('systemd')
     messages = readJournal("sshd.service")
     filtersCounts = getFiltersCounts()
     ips = getAllIPs(messages, filtersCounts)
-    print("\n".join([iptablesBlockIP(ip) for ip in ips]))
+    locs = [getIPLoc(gi, ip) for ip in ips]
+    print("\n".join([iptablesBlockIP(ip, location) for (ip, location) in zip(ips, locs)]))
 
 if __name__ == "__main__":
     main()
