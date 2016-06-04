@@ -53,7 +53,7 @@ def getAllIPs(lines, filtersCounts):
     return ips
 
 def iptablesBlockIP(ip, location):
-    iptablesBlock = "-A INPUT -s %s/32 -j DROP    # %s" % (ip, location)
+    iptablesBlock = "-A INPUT -s %s/32 -j DROP" % (ip)
     return iptablesBlock
 
 def getIPLoc(gi, ip):
