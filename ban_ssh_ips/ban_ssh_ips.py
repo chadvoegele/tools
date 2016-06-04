@@ -13,8 +13,7 @@ def getFiltersCounts():
             ("%s port \d+:\d: com\.jcraft\.jsch\.JSchException: Auth fail" % ipRegex(), 1),
             ("Invalid user.*%s" % ipRegex(), 2),
             ("Did not receive identification string from %s" % ipRegex(), 1),
-            ("fatal: Unable to negotiate with %s port \d+: no matching key exchange method found." % ipRegex(), 1),
-            (".*%s.*" % ipRegex(), 25)
+            ("fatal: Unable to negotiate with %s port \d+: no matching key exchange method found." % ipRegex(), 1)
             ]
     return filtersCounts
 
