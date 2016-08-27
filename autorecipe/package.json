@@ -1,0 +1,10 @@
+{
+  "name": "autorecipe",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^12.3.0"
+  }
+}
