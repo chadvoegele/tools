@@ -24,10 +24,14 @@ var parseRecipe = function (recipeLines) {
   recipeLines.map(function (line) {
     var trimmedLine = line.trim();
 
-    if (trimmedLine.toLowerCase() === 'ingredients') {
+    if (trimmedLine.toLowerCase().includes('ingredients')) {
       currentSection = 'ingredients';
 
-    } else if (['instructions', 'directions'].indexOf(trimmedLine.toLowerCase()) !== -1) {
+    } else if (
+      [ 'instructions', 'directions' ].some(function (w) {
+        return trimmedLine.toLowerCase().includes(w);
+      })
+    ) {
       currentSection = 'instructions';
 
     } else if (trimmedLine.length === 0) {
