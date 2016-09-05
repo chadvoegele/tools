@@ -1,12 +1,20 @@
 'use strict';
 
+var titleCase = function (sentence) {
+  return makeCase(sentence, ' ');
+};
+
 var sentenceCase = function (paragraph) {
-  var sentences = paragraph.split('. ');
-  var sentencesCased = sentences.map(function (sentence) {
-    return sentence[0].toUpperCase() + sentence.slice(1).toLowerCase();
+  return makeCase(paragraph, '. ');
+};
+
+var makeCase = function (text, separator) {
+  var splitText = text.split(separator);
+  var textCased = splitText.map(function (text) {
+    return text[0].toUpperCase() + text.slice(1).toLowerCase();
   });
-  var paragraphCased = sentencesCased.join('. ');
-  return paragraphCased;
+  var joinedTextCased = textCased.join(separator);
+  return joinedTextCased;
 };
 
 var parseRecipe = function (recipeLines) {
@@ -26,7 +34,7 @@ var parseRecipe = function (recipeLines) {
       currentSection = 'extra';
 
     } else if (currentSection === 'title') {
-      recipe.title = trimmedLine;
+      recipe.title = titleCase(trimmedLine);
       currentSection = 'extra';
 
     } else if (
