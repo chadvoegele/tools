@@ -1,7 +1,7 @@
 #pragma once
 
 void setup_ext_apps(std::map<std::string, std::string>& ext_app) {
-  ext_app["xoj"] = "xournal";
+  ext_app["xoj"] = "xournalpp";
   ext_app["scala"] = "vim -p";
 }
 
@@ -13,7 +13,7 @@ void setup_mime_apps(std::map<std::string, std::string>& mime_app) {
   mime_app["application/x-perl"] = "vim -p";
   mime_app["application/x-shellscript"] = "vim -p";
   mime_app["application/x-tar"] = "tar -xf";
-  mime_app["application/x-xoj"] = "xournal";
+  mime_app["application/x-xoj"] = "xournalpp";
   mime_app["application/vnd.ms-office"] = "gnumeric";
   mime_app["image/jpeg"] = "gqview";
   mime_app["text/plain"] = "vim -p";
