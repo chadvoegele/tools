@@ -24,12 +24,12 @@ var parseRecipe = function (recipeLines) {
   recipeLines.map(function (line) {
     var trimmedLine = line.trim();
 
-    if (trimmedLine.toLowerCase().includes('ingredients')) {
+    if (trimmedLine.toLowerCase().replace(/\W/g, '') === 'ingredients') {
       currentSection = 'ingredients';
 
     } else if (
       [ 'instructions', 'directions' ].some(function (w) {
-        return trimmedLine.toLowerCase().includes(w);
+        return trimmedLine.toLowerCase().replace(/\W/g, '').includes(w);
       })
     ) {
       currentSection = 'instructions';
