@@ -56,6 +56,6 @@ googleAuth.authenticate({
       functionName: 'makeRecipes',
       callback: function () { console.log(JSON.stringify(arguments)); },
       oauth2Client: oauth2Client
-    })(recipes);
+    })(recipes, process.env.MOVE_TO);
   }
 });
