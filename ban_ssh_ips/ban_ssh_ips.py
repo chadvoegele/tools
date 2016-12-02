@@ -13,7 +13,7 @@ def getFiltersCounts():
             ("%s port \d+:\d: com\.jcraft\.jsch\.JSchException: Auth fail" % ipRegex(), 1),
             ("Invalid user.*%s" % ipRegex(), 2),
             ("Did not receive identification string from %s" % ipRegex(), 1),
-            ("fatal: Unable to negotiate with %s port \d+: no matching key exchange method found." % ipRegex(), 1)
+            ("Unable to negotiate with %s port \d+: no matching key exchange method found." % ipRegex(), 1)
             ]
     return filtersCounts
 
@@ -27,10 +27,12 @@ def errorIfModuleMissing(name):
         print("Please install module: %s" % name)
         sys.exit(1)
 
-def readJournal(service):
+def readJournal(service, syslog_indentifier):
     j = systemd.journal.Reader()
     j.this_boot()
     j.add_match(_SYSTEMD_UNIT=service)
+    j.add_disjunction()
+    j.add_match(SYSLOG_IDENTIFIER=syslog_indentifier)
     messages = [entry['MESSAGE'] for entry in j]
     return messages
 
@@ -62,7 +64,7 @@ def getIPLoc(gi, ip):
 def main():
     gi = GeoIP.open('/usr/share/GeoIP/GeoIP.dat', GeoIP.GEOIP_STANDARD)
     errorIfModuleMissing('systemd')
-    messages = readJournal("sshd.service")
+    messages = readJournal('sshd.service', 'sshd')
     filtersCounts = getFiltersCounts()
     ips = getAllIPs(messages, filtersCounts)
     locs = [getIPLoc(gi, ip) for ip in ips]
