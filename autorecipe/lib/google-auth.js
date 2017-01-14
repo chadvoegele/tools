@@ -4,6 +4,7 @@ var google = require('googleapis');
 var script = google.script('v1');
 var OAuth2Client = google.auth.OAuth2;
 var readline = require('readline');
+var child_process = require('child_process');
 
 var exports = {};
 
@@ -21,6 +22,11 @@ exports.authenticate = function (args) {
   });
 
   console.log('Visit the url: ', url);
+  var browserCmd = process.env.BROWSER;
+  if (browserCmd) {
+    child_process.exec([ browserCmd, ' "', url, '"' ].join(' '));
+  }
+
   rl.question('Enter the code here: ', function (code) {
     oauth2Client.getToken(code, function (err, tokens) {
       if (err) {
