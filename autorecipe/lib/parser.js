@@ -28,7 +28,7 @@ var parseRecipe = function (recipeLines) {
       currentSection = 'ingredients';
 
     } else if (
-      [ 'instructions', 'directions' ].some(function (w) {
+      [ 'instructions', 'directions', 'preparation' ].some(function (w) {
         return trimmedLine.toLowerCase().replace(/\W/g, '').includes(w);
       })
     ) {
