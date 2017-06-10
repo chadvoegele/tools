@@ -15,6 +15,7 @@ def getFiltersCounts():
             ("Did not receive identification string from %s" % ipRegex(), 1),
             ("Unable to negotiate with %s port \d+: no matching key exchange method found." % ipRegex(), 1),
             ("Connection reset by %s port \d+" % ipRegex(), 100),
+            ("error: maximum authentication attempts exceeded for root from %s port \d+ ssh2" % ipRegex(), 1),
             ]
     return filtersCounts
 
