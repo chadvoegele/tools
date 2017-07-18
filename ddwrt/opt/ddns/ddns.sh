@@ -32,7 +32,7 @@ do
     nvram set wan_ipaddr_last=$CURRENT_WAN_IP
     nvram commit
     echo "$CURRENT_TIME: Updating DynDNS Service" >> $LOG_FILE
-    (echo "$CURRENT_TIME: Running $CURL_CMD" | sed "s/$DDNS_PASSWORD/...ELIDED.../") >> $LOG_FILE
+    (echo "$CURRENT_TIME: Running $CURL_CMD" | sed "s/$DDNS_PASSWORD/...REDACTED.../") >> $LOG_FILE
     $CURL_CMD 1>> $LOG_FILE 2>&1
     echo "" >> $LOG_FILE
 
@@ -40,7 +40,7 @@ do
   elif [ -z $DNS_IP ] || [ $CURRENT_WAN_IP != $DNS_IP ]; then
     echo "$CURRENT_TIME: DNS IP not up to date, currently: $DNS_IP, but our IP is $CURRENT_WAN_IP" >> $LOG_FILE
     echo "$CURRENT_TIME: Updating DynDNS Service" >> $LOG_FILE
-    (echo "$CURRENT_TIME: Running $CURL_CMD" | sed "s/$DDNS_PASSWORD/...ELIDED.../") >> $LOG_FILE
+    (echo "$CURRENT_TIME: Running $CURL_CMD" | sed "s/$DDNS_PASSWORD/...REDACTED.../") >> $LOG_FILE
     $CURL_CMD 1>> $LOG_FILE 2>&1
     echo "" >> $LOG_FILE
 
