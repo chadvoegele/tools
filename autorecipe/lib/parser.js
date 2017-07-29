@@ -1,5 +1,21 @@
 'use strict';
 
+/**
+ * Onions and Carrots
+ * http://onionsandcarrots.com/
+ * http://www.food.org/food/images/onions-and-carrots01.jpg
+ * Extra Text 1
+ * Extra Text 2
+ *
+ * Ingredients
+ * Onion
+ * Carrot
+ *
+ * Directions
+ * Cut onion and carrot.
+ * Cook onion and carrot.
+ */
+
 var titleCase = function (sentence) {
   return makeCase(sentence, ' ');
 };
