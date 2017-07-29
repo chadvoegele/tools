@@ -17,6 +17,13 @@ var makeCase = function (text, separator) {
   return joinedTextCased;
 };
 
+var isLink = function (text) {
+  var foundLinkId = ['.com', 'http', '.net'].some(function (id) {
+    return text.search(id) >= 0;
+  });
+  return foundLinkId;
+};
+
 var parseRecipe = function (recipeLines) {
   var recipe = {};
 
@@ -52,7 +59,8 @@ var parseRecipe = function (recipeLines) {
       if (!recipe[currentSection]) {
         recipe[currentSection] = [];
       }
-      recipe[currentSection].push(sentenceCase(trimmedLine));
+      var pushLine = isLink(trimmedLine) && trimmedLine || sentenceCase(trimmedLine);
+      recipe[currentSection].push(pushLine);
     }
   });
 
