@@ -1,4 +1,5 @@
 import sys
+import os
 import importlib.util
 import systemd.journal
 import re
@@ -64,12 +65,27 @@ def iptablesBlockIP(ip, location):
 def getIPLoc(gi, ip):
     return gi.country_name_by_addr(ip)
 
+def getWhitelistIPs():
+    whitelistIPs = []
+    whitelist_file = os.getenv('WHITELIST_IPS')
+
+    if not whitelist_file:
+        return whitelistIPs
+
+    with open(whitelist_file, 'r') as whitelist:
+        for line in whitelist.readlines():
+            whitelistIPs.append(line.strip())
+
+    return whitelistIPs
+
 def main():
     gi = GeoIP.open('/usr/share/GeoIP/GeoIP.dat', GeoIP.GEOIP_STANDARD)
     errorIfModuleMissing('systemd')
     messages = readJournal('sshd.service', 'sshd')
     filtersCounts = getFiltersCounts()
     ips = getAllIPs(messages, filtersCounts)
+    whitelistIPs = getWhitelistIPs()
+    ips = set([ip for ip in ips if ip not in whitelistIPs])
     locs = [getIPLoc(gi, ip) for ip in ips]
     print("\n".join([iptablesBlockIP(ip, location) for (ip, location) in zip(ips, locs)]))
 
