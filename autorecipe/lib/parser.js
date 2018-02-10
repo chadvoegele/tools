@@ -51,7 +51,7 @@ var parseRecipe = function (recipeLines) {
       currentSection = 'ingredients';
 
     } else if (
-      [ 'instructions', 'directions', 'preparation' ].some(function (w) {
+      [ 'instructions', 'directions', 'preparation', 'method' ].some(function (w) {
         return trimmedLine.toLowerCase().replace(/\W/g, '').includes(w);
       })
     ) {
@@ -65,7 +65,7 @@ var parseRecipe = function (recipeLines) {
       currentSection = 'extra';
 
     } else if (
-      ['jpg', 'png', 'gif']
+      [ 'jpg', 'png', 'gif', 'jpeg' ]
       .map(function (ext) { return trimmedLine.search(ext) })
       .some(function (index) { return index >= 0; })) {
       recipe.imageUrl = trimmedLine;
