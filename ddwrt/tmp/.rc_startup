@@ -1,5 +1,0 @@
-mount -o bind /jffs/opt /opt
-sleep 5
-. /opt/secrets.sh
-/opt/ddns/ddns.sh &
-arp -i br0 -s 192.168.1.254 FF:FF:FF:FF:FF:FF
