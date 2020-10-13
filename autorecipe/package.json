@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "google-auth-library": "^0.9.8",
-    "googleapis": "^12.3.0"
+    "google-auth-library": "^6.1.1",
+    "googleapis": "^61.0.0"
   }
 }

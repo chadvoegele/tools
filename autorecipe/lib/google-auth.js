@@ -1,7 +1,6 @@
 'use strict';
 
-var google = require('googleapis');
-var script = google.script('v1');
+const {google} = require('googleapis');
 var OAuth2Client = google.auth.OAuth2;
 var readline = require('readline');
 var child_process = require('child_process');
@@ -46,8 +45,8 @@ exports.runScriptFunction = function (args) {
       'devMode': true   // Optional.
     };
 
+    const script = google.script({version: 'v1', auth: args.oauth2Client});
     script.scripts.run({
-      auth: args.oauth2Client,
       scriptId: args.scriptID,
       resource: request
     }, {}, args.callback);
