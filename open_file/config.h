@@ -13,7 +13,7 @@ void setup_mime_apps(std::map<std::string, std::string>& mime_app) {
   mime_app["application/x-tar"] = "tar -xf";
   mime_app["application/x-xoj"] = "xournal";
   mime_app["application/vnd.ms-office"] = "gnumeric";
-  mime_app["image/jpeg"] = "sxiv";
+  mime_app["image/jpeg"] = "imv";
   mime_app["text/plain"] = "vim";
   mime_app["text/x-c"] = "vim";
   mime_app["text/x-c++src"] = "vim";
